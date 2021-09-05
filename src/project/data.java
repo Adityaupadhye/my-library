@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package project;
 
 import java.sql.*;
@@ -14,18 +10,14 @@ import java.util.*;
  */
 public class data {
     
-//    private static final String USER="adi";
-//    private static final String PSWD="aditya1506";
-//    private static final String URL="jdbc:mysql://65.0.230.205/information_schema";
     private Connection con;
-    //Statement statement;
+    public static final String LOG_NAME = "projectlogs";
     
     public data(){
-        //Class.forName("com.mysql.cj.jdbc.Driver");
         try {
             Class.forName("org.sqlite.JDBC");
             con=DriverManager.getConnection("jdbc:sqlite:library.db");
-            System.out.println("connected to DB");
+            //System.out.println("connected to DB");
             //statement=con.createStatement();
         } catch (Exception e) {
             System.out.println("connection error: "+e.getMessage());
@@ -135,7 +127,7 @@ public class data {
     public void closeConnection(){
         try {
             con.close();
-            System.out.println("connection closed");
+            //System.out.println("connection closed");
         } catch (Exception e) {
             System.out.println("connection closing error: "+e.getMessage());
         }
@@ -198,11 +190,5 @@ public class data {
         }
         
     }
-    
-    public ResultSet connect(String sql) throws Exception{
-        Statement st=con.createStatement();
-        return st.executeQuery(sql);
-    }
-    
     
 }

@@ -1,17 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package project;
 
 /**
  *
- * @author 521949
+ * @author aditya upadhye
  */
-import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -28,32 +22,24 @@ public class page4 extends javax.swing.JFrame {
         new page1().scaleImg(bg_label, "images/scifi.png");
     }
 
-    public page4(String b) {
-        initComponents();
-        L.setText(b);
-        db = new data();
-        new page1().scaleImg(bg_label, "images/scifi.png");
-    }
-
     public void message() {
-        String c = L.getText();
-        page10 x = new page10(c);
-        int n = JOptionPane.showConfirmDialog(rootPane, "added to cart..select another category?", "add to cart", 1, -1);
+        page10 x = new page10();
+        int n = JOptionPane.showConfirmDialog(null, "added to cart..select another category?", "add to cart", 1, -1);
         if (n == 0) {
-            page2 s = new page2(c);
-            s.setVisible(true);
             dispose();
+            page2 s = new page2();
+            s.setVisible(true);
         }
         if (n == 1) {
-            int z = JOptionPane.showConfirmDialog(rootPane, "books added to cart..proceed to checkout?", "conifrmation", 1, -1);
+            int z = JOptionPane.showConfirmDialog(null, "books added to cart..proceed to checkout?", "conifrmation", 1, -1);
             if (z == 0) {
-                x.setVisible(true);
                 dispose();
+                x.setVisible(true);
             }
             if (z == 1) {
-                page2 y = new page2(c);
-                y.setVisible(true);
                 dispose();
+                page2 y = new page2();
+                y.setVisible(true);
             }
         }
     }
@@ -85,7 +71,6 @@ public class page4 extends javax.swing.JFrame {
         l2 = new javax.swing.JLabel();
         l1 = new javax.swing.JLabel();
         bg_label = new javax.swing.JLabel();
-        L = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Science Fiction");
@@ -259,19 +244,14 @@ public class page4 extends javax.swing.JFrame {
         getContentPane().add(bg_label);
         bg_label.setBounds(0, 0, 1200, 680);
 
-        L.setOpaque(true);
-        getContentPane().add(L);
-        L.setBounds(380, 10, 240, 20);
-
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
-        String c = L.getText();
-        page2 page2 = new page2(c);
-        page2.setVisible(true);
         dispose();
+        page2 page2 = new page2();
+        page2.setVisible(true);
     }//GEN-LAST:event_backbtnActionPerformed
 
     private void addtocartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addtocartBtnActionPerformed
@@ -287,85 +267,10 @@ public class page4 extends javax.swing.JFrame {
             if(rb5.isSelected()) bookNames.add(rb5.getText());
             if(rb6.isSelected()) bookNames.add(rb6.getText());
             
-            for(var bookName: bookNames){
+            for(String bookName: bookNames){
                 db.insertBook(bookName, category);
             }
             
-            /*
-            //Class.forName("java.sql.Driver");
-            //Connection con = DriverManager.getConnection("jdbc:mysql://localhost/project", "root", "#1506");
-            //Statement st = con.createStatement();
-            
-            HashMap<String, String> map = new HashMap<>();
-
-            if (rb1.isSelected()) {
-                String n1 = rb1.getText();
-                //String sql = "insert into books values('" + n1 + "','" + sf + "')";
-                map.put(n1, sf);
-                //db.newUpdateQuery(sql);
-                //st.executeUpdate(sql);
-
-            }
-
-            if (rb2.isSelected()) {
-                String n2 = rb2.getText();
-                //String sql = "insert into books values('" + n2 + "','" + sf + "')";
-                //db.newUpdateQuery(sql);
-                map.put(n2, sf);
-                //st.executeUpdate(sql);
-
-            }
-
-            if (rb3.isSelected()) {
-                String n3 = rb3.getText();
-                //String sql = "insert into books values('" + n3 + "','" + sf + "')";
-                //db.newUpdateQuery(sql);
-                map.put(n3, sf);
-                //st.executeUpdate(sql);
-
-            }
-
-            if (rb4.isSelected()) {
-                String n4 = rb4.getText();
-                //String sql = "insert into books values('" + n4 + "','" + sf + "')";
-                //db.newUpdateQuery(sql);
-                map.put(n4, sf);
-                //st.executeUpdate(sql);
-
-            }
-
-            if (rb5.isSelected()) {
-                String n5 = rb5.getText();
-                //String sql = "insert into books values('" + n5 + "','" + sf + "')";
-                //db.newUpdateQuery(sql);
-                map.put(n5, sf);
-                //st.executeUpdate(sql);
-
-            }
-
-            if (rb6.isSelected()) {
-                String n6 = rb6.getText();
-                //String sql = "insert into books values('" + n6 + "','" + sf + "')";
-                //db.newUpdateQuery(sql);
-                map.put(n6, sf);
-                //st.executeUpdate(sql);
-
-            }
-            
-            map.forEach((bookName, category) -> {
-                System.out.println(Thread.currentThread().getName());
-                try {
-                    String insertQuery = "INSERT INTO books VALUES('"+bookName+"','"+category+"','"+User.id+"');";
-                    db.newUpdateQuery(insertQuery);
-                } catch (Exception e) {
-                    System.out.println("Insertion Error: "+e.getMessage());
-                }
-            });
-
-            //String countCurCategoryBooks = "select count(*) from books where category='Science Fiction';";
-            //ResultSet rs = db.newQuery(countCurCategoryBooks);
-            //rs.first();
-            */
             int curCategoryCount = db.getTotalBooksCount(category);
             if (curCategoryCount == 0) {
                 JOptionPane.showMessageDialog(rootPane, "no book selected");
@@ -388,14 +293,8 @@ public class page4 extends javax.swing.JFrame {
         l6.setVisible(false);
         
         try {
-//            Class.forName("java.sql.Driver");
-//            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/project", "root", "#1506");
-//            Statement st = con.createStatement();
-            String countBooksQuery = "select count(*) from books;";
-            ResultSet rs = db.newQuery(countBooksQuery);
-            //rs.first();
-            int n = rs.getInt(1);
-            lc.setText("" + n);
+            int count = db.getTotalBooksCount();
+            lc.setText("" + count);
         } 
         catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -492,7 +391,6 @@ public class page4 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel L;
     private javax.swing.JButton addtocartBtn;
     private javax.swing.JButton backbtn;
     private javax.swing.JLabel bg_label;

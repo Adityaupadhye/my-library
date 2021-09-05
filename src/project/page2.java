@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package project;
 
 import javax.swing.JOptionPane;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,13 +23,6 @@ public class page2 extends javax.swing.JFrame {
         new page1().scaleImg(this.bg_label,"images/colour-spectrum.jpg");
     }
 
-    public page2(String w) {
-        initComponents();
-        L.setText(w);
-        //welcomeLabel.setText("Welcome "+w);
-        db = new data();
-        new page1().scaleImg(this.bg_label,"images/colour-spectrum.jpg");
-    }
 
     @Override
     public void dispose() {
@@ -64,7 +55,6 @@ public class page2 extends javax.swing.JFrame {
         cartCountLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         bg_label = new javax.swing.JLabel();
-        L = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("category\n");
@@ -244,43 +234,24 @@ public class page2 extends javax.swing.JFrame {
         getContentPane().add(bg_label);
         bg_label.setBounds(0, 0, 1190, 690);
 
-        L.setForeground(new java.awt.Color(255, 255, 255));
-        L.setOpaque(true);
-        getContentPane().add(L);
-        L.setBounds(20, 20, 100, 50);
-
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void backbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbtnActionPerformed
-
-        try {
-//            Class.forName("com.mysql.jdbc.driver");
-//            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/project", "root", "#1506");
-//            Statement st = con.createStatement();
-            String countBooksQuery = "SELECT COUNT(*) FROM books";
-            ResultSet rs = db.newQuery(countBooksQuery);
-            //rs.first();
-            int count = rs.getInt(1);
-            if (count != 0) {
-                int f = JOptionPane.showConfirmDialog(rootPane, "If you go back to home page your cart will be discarded"
-                        + "  you still want to go back??", "warning", 1, -1);
-                if (f == 0) {
-                    page1 s = new page1();
-                    s.setVisible(true);
-                    dispose();
-                }
-            } 
-            else {
-                new page1().setVisible(true);
-                dispose();
-            }
-        } 
-        catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        
+        int choice = JOptionPane.showConfirmDialog(null,
+                "Do you want to logout?", "Logout",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE
+        );
+        
+        if(choice == JOptionPane.YES_OPTION){
             dispose();
+            page1 s = new page1();
+            s.setVisible(true);
+                    
         }
+        
     }//GEN-LAST:event_backbtnActionPerformed
 
     private void exitbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitbtnActionPerformed
@@ -289,51 +260,51 @@ public class page2 extends javax.swing.JFrame {
     }//GEN-LAST:event_exitbtnActionPerformed
 
     private void proceedbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedbtnActionPerformed
-        String b = L.getText();
+        //String b = L.getText();
         int cartCount = Integer.parseInt(cartCountLabel.getText());
         //String a = sciencefiction.getText();
-        System.out.println(b);
+        //System.out.println(b);
         
         if (sciencefiction.isSelected()) {
             dispose();
-            page4 z = new page4(b);
+            page4 z = new page4();
             z.setVisible(true);
             //dispose();
         } 
         else if (romance.isSelected()) {
             dispose();
-            page5 y = new page5(b);
+            page5 y = new page5();
             y.setVisible(true);
             //dispose();
 
         } 
         else if (horror.isSelected()) {
             dispose();
-            page6 x = new page6(b);
+            page6 x = new page6();
             x.setVisible(true);
             //dispose();
         } 
         else if (comic.isSelected()) {
             dispose();
-            page7 w = new page7(b);
+            page7 w = new page7();
             w.setVisible(true);
             dispose();
         } 
         else if (mystery.isSelected()) {
             dispose();
-            page8 r = new page8(b);
+            page8 r = new page8();
             r.setVisible(true);
             //dispose();
         } 
         else if (biography.isSelected()) {
             dispose();
-            page9 t = new page9(b);
+            page9 t = new page9();
             t.setVisible(true);
             //dispose();
         } 
         else if (cartCount != 0) {
             dispose();
-            page10 op = new page10(b);
+            page10 op = new page10();
             op.setVisible(true);
         } 
         else {
@@ -352,18 +323,13 @@ public class page2 extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         try {
-//            Class.forName("java.sql.Driver");
-//            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/project", "root", "#1506");
-//            Statement st = con.createStatement();
-            String countBooksQuery = "select count(*) from books;";
-            ResultSet rs = db.newQuery(countBooksQuery);
-            //rs.first();
             int count = db.getTotalBooksCount();
             cartCountLabel.setText("" + count);
 
         } 
         catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());// TODO add your handling code here:
+            Logger.getLogger(data.LOG_NAME).log(Level.INFO, "Error: {0}", e.getMessage());
+            JOptionPane.showMessageDialog(rootPane, "Error: "+e.getMessage());
         }
     }//GEN-LAST:event_formWindowActivated
 
@@ -411,7 +377,6 @@ public class page2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel L;
     private javax.swing.JButton backbtn;
     private javax.swing.JLabel bg_label;
     private javax.swing.JRadioButton biography;

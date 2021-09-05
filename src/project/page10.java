@@ -1,28 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package project;
 
-import java.util.*;
-import javax.swing.JTable;
+
 
 /**
  *
  * @author Aditya Upadhye
  */
 import javax.swing.JOptionPane;
-import java.sql.*;
 import javax.swing.table.*;
+import java.util.*;
+import javax.swing.JTable;
 
 public class page10 extends javax.swing.JFrame {
 
-//    Connection con = null;
-//    Statement st = null;
-//    ResultSet rs = null;
     private final data db;
     private page1 page1 = new page1();
+    private int myTotalBooks=0;
 
     /**
      * Creates new form page10
@@ -37,7 +31,6 @@ public class page10 extends javax.swing.JFrame {
         initComponents();
         page1.scaleImg(bg_label, "images/c5.jpg");
         db = new data();
-        nameTF.setText(u);
     }
 
     private boolean showDeleteDialog(String bookName) {
@@ -62,12 +55,13 @@ public class page10 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        nameTF = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         t1 = new javax.swing.JTable();
         doneBtn = new javax.swing.JButton();
         emptyCartBtn = new javax.swing.JButton();
+        nameTF = new javax.swing.JLabel();
+        countTF = new javax.swing.JLabel();
         bg_label = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,26 +69,17 @@ public class page10 extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1200, 680));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
         getContentPane().setLayout(null);
 
-        nameTF.setEditable(false);
-        nameTF.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        nameTF.setForeground(new java.awt.Color(255, 255, 255));
-        nameTF.setEnabled(false);
-        nameTF.setOpaque(false);
-        getContentPane().add(nameTF);
-        nameTF.setBounds(360, 50, 260, 40);
-
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Name of User :");
+        jLabel2.setOpaque(true);
         getContentPane().add(jLabel2);
         jLabel2.setBounds(130, 50, 190, 40);
 
@@ -154,6 +139,20 @@ public class page10 extends javax.swing.JFrame {
         getContentPane().add(emptyCartBtn);
         emptyCartBtn.setBounds(360, 430, 220, 40);
 
+        nameTF.setBackground(new java.awt.Color(0, 0, 0));
+        nameTF.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        nameTF.setForeground(new java.awt.Color(255, 255, 255));
+        nameTF.setOpaque(true);
+        getContentPane().add(nameTF);
+        nameTF.setBounds(320, 50, 240, 40);
+
+        countTF.setBackground(new java.awt.Color(0, 0, 0));
+        countTF.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        countTF.setForeground(new java.awt.Color(255, 255, 255));
+        countTF.setOpaque(true);
+        getContentPane().add(countTF);
+        countTF.setBounds(560, 50, 300, 40);
+
         bg_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/c5.jpg"))); // NOI18N
         bg_label.setPreferredSize(new java.awt.Dimension(1490, 785));
         getContentPane().add(bg_label);
@@ -163,55 +162,22 @@ public class page10 extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        try {
-
-            //DefaultTableModel tm = (DefaultTableModel) t1.getModel();
-            //Class.forName("java.sql.Driver");
-            //con = DriverManager.getConnection("jdbc:mysql://localhost/project", "root", "");
-            //String getAllBooks = "select * from books;";
-            //st = con.createStatement();
-//            List<Object[]> books = db.getAllBooks();
-//            books.forEach(book -> {
-//                tm.addRow(book);
-//            });
-//            while (rs.next()) {
-//                String bookName = rs.getString("book_name");
-//                String category = rs.getString("category");
-//                Object ob[] = {bookName, category};
-//                tm.addRow(ob);
-//            }
-            //rs.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(rootPane, "Error: " + e.getMessage());
-            System.exit(0);
-        }
-    }//GEN-LAST:event_formWindowActivated
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
-            String u = nameTF.getText();
-
             nameTF.setText(User.name);
 
-//            String getNameQuery = "SELECT name FROM users WHERE username='" + u + "'";
-//            ResultSet nameResultSet = db.newQuery(getNameQuery);
-//            System.out.println(nameResultSet);
-//            //nameResultSet.first();
-//            if(!nameResultSet.isClosed()){
-//                String name = nameResultSet.getString("name");
-//                nameTF.setText(name);
-//            }
             DefaultTableModel tm = (DefaultTableModel) t1.getModel();
             List<Object[]> books = db.getAllBooks();
             books.forEach(book -> {
                 tm.addRow(book);
             });
-        } catch (Exception e) {
-            e.printStackTrace();
+            myTotalBooks = db.getTotalBooksCount();
+            countTF.setText("Total books I have = "+myTotalBooks);
+            
+        } 
+        catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Error: " + e.getMessage());
-            System.exit(0);
+            //System.exit(0);
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -236,6 +202,7 @@ public class page10 extends javax.swing.JFrame {
             if (db.deleteMyBooks()) {
                 DefaultTableModel tm = (DefaultTableModel) t1.getModel();
                 tm.setRowCount(0);
+                countTF.setText("I have 0 books");
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Error in deleting books");
             }
@@ -251,6 +218,8 @@ public class page10 extends javax.swing.JFrame {
         String value = source.getModel().getValueAt(row, 0).toString();
         if (showDeleteDialog(value)) {
             tm.removeRow(row);
+            myTotalBooks--;
+            countTF.setText("Total books I have = "+myTotalBooks);
         }
 
         System.out.println(value);
@@ -293,11 +262,12 @@ public class page10 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bg_label;
+    private javax.swing.JLabel countTF;
     private javax.swing.JButton doneBtn;
     private javax.swing.JButton emptyCartBtn;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField nameTF;
+    private javax.swing.JLabel nameTF;
     private javax.swing.JTable t1;
     // End of variables declaration//GEN-END:variables
 }

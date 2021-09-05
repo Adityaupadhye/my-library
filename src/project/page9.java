@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package project;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,40 +23,39 @@ public class page9 extends javax.swing.JFrame {
         page1.scaleImg(bg_label, "images/c3.jpg");
     }
 
-    public page9(String p) {
-        initComponents();
-        L.setText(p);
-        db = new data();
-        page1.scaleImg(bg_label, "images/c3.jpg");
-    }
+//    public page9(String p) {
+//        initComponents();
+//        L.setText(p);
+//        db = new data();
+//        page1.scaleImg(bg_label, "images/c3.jpg");
+//    }
 
     @Override
     public void dispose() {
         super.dispose();
         db.closeConnection();
     }
-    
-    
+
 
     public void message() {
-        String c = L.getText();
-        page10 x = new page10(c);
+        //String c = L.getText();
+        page10 x = new page10();
         int n = JOptionPane.showConfirmDialog(rootPane, "added to cart..select another category?", "add to cart", 1, -1);
         if (n == 0) {
-            page2 s = new page2(c);
-            s.setVisible(true);
             dispose();
+            page2 s = new page2();
+            s.setVisible(true);
         }
         if (n == 1) {
             int z = JOptionPane.showConfirmDialog(rootPane, "books added to cart..proceed to checkout?", "conifrmation", 1, -1);
             if (z == 0) {
-                x.setVisible(true);
                 dispose();
+                x.setVisible(true);
             }
             if (z == 1) {
-                page2 y = new page2(c);
-                y.setVisible(true);
                 dispose();
+                page2 y = new page2();
+                y.setVisible(true);
             }
         }
     }
@@ -95,7 +87,6 @@ public class page9 extends javax.swing.JFrame {
         l2 = new javax.swing.JLabel();
         l1 = new javax.swing.JLabel();
         bg_label = new javax.swing.JLabel();
-        L = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1200, 680));
@@ -271,18 +262,16 @@ public class page9 extends javax.swing.JFrame {
         bg_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/c3.jpg"))); // NOI18N
         getContentPane().add(bg_label);
         bg_label.setBounds(0, 0, 1200, 680);
-        getContentPane().add(L);
-        L.setBounds(570, 580, 260, 70);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        String c = L.getText();
-        page2 a = new page2(c);
-        a.setVisible(true);
+        //String c = L.getText();
         dispose();
+        page2 a = new page2();
+        a.setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void addToCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCartBtnActionPerformed
@@ -298,70 +287,11 @@ public class page9 extends javax.swing.JFrame {
             if(rb5.isSelected()) bookNames.add(rb5.getText());
             if(rb6.isSelected()) bookNames.add(rb6.getText());
             
-            for(var bookName: bookNames){
+            for(String bookName: bookNames){
                 db.insertBook(bookName, category);
             }
             
-            /*Class.forName("java.sql.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/project", "root", "");
-            Statement st = con.createStatement();
             
-            HashMap<String,String> map = new HashMap<>();
-            String book_name="";
-            if (rb1.isSelected()) {
-                book_name = rb1.getText();
-                //String sql = "insert into books values('" + n1 + "','" + category + "')";
-                //st.executeUpdate(sql);
-                map.put(book_name, category);
-            }
-            if (rb2.isSelected()) {
-                book_name = rb2.getText();
-                //String sql = "insert into books values('" + n2 + "','" + category + "')";
-                //st.executeUpdate(sql);
-                map.put(book_name, category);
-
-            }
-            if (rb3.isSelected()) {
-                book_name = rb3.getText();
-                //String sql = "insert into books values('" + n3 + "','" + category + "')";
-                //st.executeUpdate(sql);
-                map.put(book_name, category);
-
-            }
-            if (rb4.isSelected()) {
-                book_name = rb4.getText();
-                //String sql = "insert into books values('" + n4 + "','" + category + "')";
-                //st.executeUpdate(sql);
-                map.put(book_name, category);
-
-            }
-            if (rb5.isSelected()) {
-                book_name = rb5.getText();
-                //String sql = "insert into books values('" + n5 + "','" + category + "')";
-                //st.executeUpdate(sql);
-                map.put(book_name, category);
-
-            }
-            if (rb6.isSelected()) {
-                book_name = rb6.getText();
-                //String sql = "insert into books values('" + n6 + "','" + category + "')";
-                //st.executeUpdate(sql);
-                map.put(book_name, category);
-
-            }
-            
-            map.forEach((bookName, ctg) -> {
-                //String insertQuery = "INSERT INTO books VALUES('"+bookName+"','"+ctg+"');";
-                if(! db.insertBook(bookName, ctg)){
-                    JOptionPane.showMessageDialog(rootPane, "Error selecting books");
-                }
-            });
-
-            String sq = "select count(*) from books where category='" + category + "';";
-            ResultSet rs = st.executeQuery(sq);
-            rs.first();
-            int a = rs.getInt(1);
-            */
             int count = db.getTotalBooksCount(category);
             if (count == 0) {
                 JOptionPane.showMessageDialog(rootPane, "no book selected");
@@ -436,16 +366,8 @@ public class page9 extends javax.swing.JFrame {
         l4.setVisible(false);
         l5.setVisible(false);
         l6.setVisible(false);
+        
         try {
-            /*
-            Class.forName("java.sql.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/project", "root", "");
-            Statement st = con.createStatement();
-            String sql = "select count(*) from books;";
-            ResultSet rs = st.executeQuery(sql);
-            rs.first();
-            int n = rs.getInt(1);
-            */
             int count = db.getTotalBooksCount();
             lc.setText("" + count);
         } 
@@ -490,7 +412,6 @@ public class page9 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel L;
     private javax.swing.JPanel P1;
     private javax.swing.JButton addToCartBtn;
     private javax.swing.JButton backBtn;

@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package project;
 
 /**
  *
- * @author 521949
+ * @author aditya upadhye
  */
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -27,12 +22,12 @@ public class page5 extends javax.swing.JFrame {
         new page1().scaleImg(bg_label, "images/rom.jpg");
     }
 
-    public page5(String r) {
-        initComponents();
-        L.setText(r);
-        db=new data();
-        new page1().scaleImg(bg_label, "images/rom.jpg");
-    }
+//    public page5(String r) {
+//        initComponents();
+//        L.setText(r);
+//        db=new data();
+//        new page1().scaleImg(bg_label, "images/rom.jpg");
+//    }
 
     @Override
     public void dispose() {
@@ -41,11 +36,11 @@ public class page5 extends javax.swing.JFrame {
     }
 
     public void message() {
-        String c = L.getText();
-        page10 x = new page10(c);
+        //String c = L.getText();
+        page10 x = new page10();
         int n = JOptionPane.showConfirmDialog(rootPane, "added to cart..select another category?", "add to cart", 1, -1);
         if (n == 0) {
-            page2 s = new page2(c);
+            page2 s = new page2();
             s.setVisible(true);
             dispose();
         }
@@ -56,7 +51,7 @@ public class page5 extends javax.swing.JFrame {
                 dispose();
             }
             if (z == 1) {
-                page2 y = new page2(c);
+                page2 y = new page2();
                 y.setVisible(true);
                 dispose();
             }
@@ -91,7 +86,6 @@ public class page5 extends javax.swing.JFrame {
         l2 = new javax.swing.JLabel();
         l1 = new javax.swing.JLabel();
         bg_label = new javax.swing.JLabel();
-        L = new javax.swing.JLabel();
 
         jButton3.setText("jButton3");
 
@@ -266,28 +260,20 @@ public class page5 extends javax.swing.JFrame {
         bg_label.setPreferredSize(new java.awt.Dimension(1200, 680));
         getContentPane().add(bg_label);
         bg_label.setBounds(0, 0, 1200, 680);
-        getContentPane().add(L);
-        L.setBounds(1360, 20, 180, 50);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
-        String c = L.getText();
-        new page2(c).setVisible(true);
         dispose();
-
+        new page2().setVisible(true);
     }//GEN-LAST:event_back_btnActionPerformed
 
     private void cart_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cart_btnActionPerformed
         try {
             String category = P1.getToolTipText();
-            //Class.forName("java.sql.Driver");
-            //Connection con = DriverManager.getConnection("jdbc:mysql://localhost/project", "root", "#1506");
-            //Statement st = con.createStatement();
             
-            //HashMap<String, String> map = new HashMap<>();
             List<String> bookNames = new ArrayList<>();
             
             //rb.getText gets the bookname
@@ -298,57 +284,10 @@ public class page5 extends javax.swing.JFrame {
             if(rb5.isSelected()) bookNames.add(rb5.getText());
             if(rb6.isSelected()) bookNames.add(rb6.getText());
             
-//            if (rb1.isSelected()) {
-//                String n1 = rb1.getText();
-//                String sql = "insert into books values('" + n1 + "','" + category + "');";
-//                //st.executeUpdate(sql);
-//                db.newUpdateQuery(sql);
-//
-//            }
-//            if (rb2.isSelected()) {
-//                String n2 = rb2.getText();
-//                String sql = "insert into books values('" + n2 + "','" + category + "')";
-//                //st.executeUpdate(sql);
-//                db.newUpdateQuery(sql);
-//
-//            }
-//            if (rb3.isSelected()) {
-//                String n3 = rb3.getText();
-//                String sql = "insert into books values('" + n3 + "','" + category + "')";
-//                //st.executeUpdate(sql);
-//                db.newUpdateQuery(sql);
-//
-//            }
-//            if (rb4.isSelected()) {
-//                String n4 = rb4.getText();
-//                String sql = "insert into books values('" + n4 + "','" + category + "')";
-//                //st.executeUpdate(sql);
-//                db.newUpdateQuery(sql);
-//                
-//            }
-//            if (rb5.isSelected()) {
-//                String n5 = rb5.getText();
-//                String sql = "insert into books values('" + n5 + "','" + category + "')";
-//                //st.executeUpdate(sql);
-//                db.newUpdateQuery(sql);
-//
-//            }
-//            if (rb6.isSelected()) {
-//                String n6 = rb6.getText();
-//                String sql = "insert into books values('" + n6 + "','" + category + "')";
-//                //st.executeUpdate(sql);
-//                db.newUpdateQuery(sql);
-//
-//            }
-
-            
-            for(var bookname: bookNames){
+            for(String bookname: bookNames){
                 db.insertBook(bookname, category);
             }
 
-            //String countCategoryBooksQuery = "select count(*) from books where category='" + category + "';";
-            //ResultSet rs = db.newQuery(countCategoryBooksQuery);
-            //rs.first();
             int count = db.getTotalBooksCount(category);
             if (count == 0) {
                 JOptionPane.showMessageDialog(rootPane, "no book selected");
@@ -359,7 +298,7 @@ public class page5 extends javax.swing.JFrame {
         } 
         catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Error: "+e.getMessage());
-            System.exit(0);
+            //System.exit(0);
         }
     }//GEN-LAST:event_cart_btnActionPerformed
 
@@ -376,7 +315,7 @@ public class page5 extends javax.swing.JFrame {
         } 
         catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
-            System.exit(0);
+            //System.exit(0);
         }
     }//GEN-LAST:event_formWindowActivated
 
@@ -470,7 +409,6 @@ public class page5 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel L;
     private javax.swing.JPanel P1;
     private javax.swing.JButton back_btn;
     private javax.swing.JLabel bg_label;

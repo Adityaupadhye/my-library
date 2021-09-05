@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package project;
 
 /**
@@ -11,14 +7,13 @@ package project;
  */
 import java.awt.Image;
 import javax.swing.JOptionPane;
-import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class page1 extends javax.swing.JFrame {
 
-    Connection con;
-    Statement st;
     data db;
 
     /**
@@ -31,7 +26,7 @@ public class page1 extends javax.swing.JFrame {
         
     }
 
-    public void scaleImg(JLabel label,String path) {
+    public final void scaleImg(JLabel label,String path) {
         try {
             ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource(path));
             //System.out.println(icon);
@@ -77,21 +72,26 @@ public class page1 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("library\n");
+        setBackground(new java.awt.Color(0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setForeground(java.awt.Color.black);
         setIconImage(new ImageIcon(getClass().getClassLoader().getResource("images/book.jpg")).getImage());
         setIconImages(null);
-        setPreferredSize(new java.awt.Dimension(1200, 680));
+        setPreferredSize(new java.awt.Dimension(1200, 720));
         setResizable(false);
         setSize(new java.awt.Dimension(1200, 680));
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
         getContentPane().setLayout(null);
 
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setForeground(new java.awt.Color(0, 51, 51));
+        jPanel1.setToolTipText("parent_panel");
         jPanel1.setMinimumSize(new java.awt.Dimension(0, 0));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 680));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1200, 720));
         jPanel1.setLayout(null);
 
         jLabel6.setBackground(new java.awt.Color(0, 0, 0));
@@ -186,12 +186,14 @@ public class page1 extends javax.swing.JFrame {
         jPanel1.add(signInButton);
         signInButton.setBounds(30, 460, 160, 50);
 
+        bg_label.setBackground(new java.awt.Color(0, 0, 0));
         bg_label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        bg_label.setForeground(new java.awt.Color(0, 0, 0));
         bg_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/book.jpg"))); // NOI18N
         bg_label.setMaximumSize(new java.awt.Dimension(10000, 10000));
-        bg_label.setPreferredSize(new java.awt.Dimension(1200, 680));
+        bg_label.setPreferredSize(new java.awt.Dimension(1200, 720));
         jPanel1.add(bg_label);
-        bg_label.setBounds(0, 0, 1200, 680);
+        bg_label.setBounds(0, 0, 1200, 720);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 1200, 680);
@@ -210,28 +212,10 @@ public class page1 extends javax.swing.JFrame {
         String password = new String(pw1.getPassword());
 
         try {
-            /*
-            Class.forName("java.sql.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/project", "root", "#1506");
-            Statement st = con.createStatement();
-            String loginQuery = "SELECT * FROM users WHERE username='" + username + "' AND password='" + password + "' ;";
-            System.out.println(loginQuery);
-            String testQuery = "SELECT * FROM users;";
-            
-            ResultSet rs = db.newQuery(loginQuery);
-            while (rs.next()) {
-                System.out.println(rs.getString("username")+" "+rs.getString("name"));
-            }
-            System.out.println(rs);
-            rs.first();
-            String db_username = rs.getString("username");
-            String db_pswd = rs.getString("password");
-            System.out.println(db_username.equals(username) && db_pswd.equals(password));
-            */
             
             if(db.login(username, password)){
                 dispose();
-                page2 page2 = new page2(username);
+                page2 page2 = new page2();
                 page2.setVisible(true);
             } 
             else {
@@ -240,7 +224,6 @@ public class page1 extends javax.swing.JFrame {
             
         } 
         catch (Exception e) {
-            e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, "Unknown error:  "+e.getMessage());
         } 
     }//GEN-LAST:event_signInButtonActionPerformed
@@ -260,24 +243,9 @@ public class page1 extends javax.swing.JFrame {
         String password = new String(pw1.getPassword());
 
         try {
-            /*
-            Class.forName("java.sql.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/project", "root", "");
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from user_info where username='" + a + "' and password='" + p + "' ;");
-            rs.first();
-            while(rs.next()){
-            for(int k=0; k<5; k++) {
-            if(k==0) 
-            rs.first();
-            else            
-            rs.next();
-            String x = rs.getString(2);
-            String y = rs.getString(3);
-            */
             if (db.login(username, password)) {
                 dispose();
-                page2 n = new page2(username);
+                page2 n = new page2();
                 n.setVisible(true);
             } 
             else {
@@ -285,7 +253,8 @@ public class page1 extends javax.swing.JFrame {
             }
         } 
         catch (Exception e) {
-            System.out.println(e.getMessage());
+            Logger.getLogger(data.LOG_NAME).log(Level.INFO, "Error: {0}", e.getMessage());
+            //System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(rootPane, "Error: "+e.getMessage());
         }
     }//GEN-LAST:event_pw1ActionPerformed
@@ -294,33 +263,21 @@ public class page1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_pw1KeyPressed
 
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+    private void TF1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF1ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
             db = new data();
             db.createBooksTable();
             db.createUsersTable();
-//            String createQuery = "CREATE TABLE IF NOT EXISTS users(\n"
-//                    + "id integer PRIMARY KEY,\n"
-//                    + "username text NOT NULL,\n"
-//                    + "password varchar(50) NOT NULL,\n"
-//                    + "name text);";
-//            
-//            mydata.createTable(createQuery);
-            ResultSet rs = db.connect("SELECT name FROM sqlite_master WHERE type='table';");
-            while (rs.next()) {
-                System.out.println(rs.getString(1));
-            }
-            System.out.println("connected to sqlite DB");
-            rs.close();
         } 
         catch (Exception e) {
-            System.out.println("Error: "+e.getMessage());
+            Logger.getLogger(data.LOG_NAME).log(Level.INFO, "Error: {0}", e.getMessage());
+            //System.out.println("Error: "+e.getMessage());
         }
-    }//GEN-LAST:event_formWindowActivated
-
-    private void TF1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TF1ActionPerformed
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

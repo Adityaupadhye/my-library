@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package project;
 
 /**
@@ -24,12 +20,12 @@ public class page3 extends javax.swing.JFrame {
         new page1().scaleImg(this.bg_label,"images/colours-quiz.jpg");
     }
 
-    public page3(String b) {
-        initComponents();
-        L.setText(b);
-        db=new data();
-        new page1().scaleImg(this.bg_label,"images/colours-quiz.jpg");
-    }
+//    public page3(String b) {
+//        initComponents();
+//        L.setText(b);
+//        db=new data();
+//        new page1().scaleImg(this.bg_label,"images/colours-quiz.jpg");
+//    }
 
     @Override
     public void dispose() {
@@ -53,13 +49,12 @@ public class page3 extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         unameTF = new javax.swing.JTextField();
-        pswdTF = new javax.swing.JTextField();
-        repswdTF = new javax.swing.JTextField();
         createAccount = new javax.swing.JButton();
         exitBtn = new javax.swing.JButton();
         nameTF = new javax.swing.JTextField();
+        pswdTF = new javax.swing.JPasswordField();
+        repswdTF = new javax.swing.JPasswordField();
         bg_label = new javax.swing.JLabel();
-        L = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -86,43 +81,27 @@ public class page3 extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Username :");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 76, 137, 35);
+        jLabel1.setBounds(10, 80, 137, 35);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Set password :");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 122, 180, 43);
+        jLabel2.setBounds(10, 130, 180, 43);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Re-check password :");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 165, 190, 37);
+        jLabel3.setBounds(10, 190, 190, 37);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Full name :");
         getContentPane().add(jLabel4);
         jLabel4.setBounds(10, 38, 113, 26);
-
-        unameTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                unameTFActionPerformed(evt);
-            }
-        });
         getContentPane().add(unameTF);
-        unameTF.setBounds(210, 80, 226, 35);
-
-        pswdTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pswdTFActionPerformed(evt);
-            }
-        });
-        getContentPane().add(pswdTF);
-        pswdTF.setBounds(210, 120, 223, 32);
-        getContentPane().add(repswdTF);
-        repswdTF.setBounds(210, 170, 223, 29);
+        unameTF.setBounds(210, 80, 220, 35);
 
         createAccount.setBackground(new java.awt.Color(0, 255, 255));
         createAccount.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -156,14 +135,22 @@ public class page3 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(nameTF);
-        nameTF.setBounds(210, 30, 226, 36);
+        nameTF.setBounds(210, 30, 220, 35);
+
+        pswdTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pswdTFActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pswdTF);
+        pswdTF.setBounds(210, 130, 220, 35);
+        getContentPane().add(repswdTF);
+        repswdTF.setBounds(210, 190, 220, 35);
 
         bg_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/Colours-quiz.jpg"))); // NOI18N
         bg_label.setPreferredSize(new java.awt.Dimension(1200, 680));
         getContentPane().add(bg_label);
         bg_label.setBounds(0, 0, 1200, 680);
-        getContentPane().add(L);
-        L.setBounds(550, 30, 210, 60);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -192,16 +179,12 @@ public class page3 extends javax.swing.JFrame {
     private void createAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createAccountActionPerformed
         try {
 
-            String z = L.getText();
-
-//            Class.forName("java.sql.Driver");
-//            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/project", "root", "");
-//            Statement st = con.createStatement();
+            //String z = L.getText();
 
             String name = nameTF.getText();
             String username = unameTF.getText();
-            String pswd = pswdTF.getText();
-            String repswd = repswdTF.getText();
+            String pswd = new String(pswdTF.getPassword());
+            String repswd = new String(repswdTF.getPassword());
             
             String insertQuery="INSERT INTO users(username, password, name)"
                     + " values('" + username + "','" + pswd + "','" + name + "');";
@@ -217,14 +200,17 @@ public class page3 extends javax.swing.JFrame {
             }
 
             if (pswd.equals(repswd) && !pswd.isEmpty()) {
+                User.name = name;
+                User.username = username;
+                User.password = pswd;
                 db.newUpdateQuery(insertQuery);
                 int n = JOptionPane.showConfirmDialog(rootPane, "your account is created.. use app now?", "sign up", 1, -1);
-                if (n == 0) {
+                if (n == JOptionPane.YES_OPTION) {
                     dispose();
-                    page2 page2 = new page2(username);
+                    page2 page2 = new page2();
                     page2.setVisible(true);
                 }
-                if (n == 1) {
+                if (n == JOptionPane.NO_OPTION) {
                     dispose();
                     page1 a = new page1();
                     a.setVisible(true);
@@ -254,10 +240,6 @@ public class page3 extends javax.swing.JFrame {
     private void pswdTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pswdTFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pswdTFActionPerformed
-
-    private void unameTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unameTFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_unameTFActionPerformed
 
     /**
      * @param args the command line arguments
@@ -295,7 +277,6 @@ public class page3 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel L;
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel bg_label;
     private javax.swing.JButton createAccount;
@@ -306,8 +287,8 @@ public class page3 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nameTF;
-    private javax.swing.JTextField pswdTF;
-    private javax.swing.JTextField repswdTF;
+    private javax.swing.JPasswordField pswdTF;
+    private javax.swing.JPasswordField repswdTF;
     private javax.swing.JTextField unameTF;
     // End of variables declaration//GEN-END:variables
 }
