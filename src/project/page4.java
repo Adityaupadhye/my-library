@@ -205,39 +205,39 @@ public class page4 extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 0));
         jLabel1.setText("books in cart:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(1350, 30, 170, 30);
+        jLabel1.setBounds(900, 30, 170, 30);
 
         lc.setFont(new java.awt.Font("Tahoma", 1, 26)); // NOI18N
         lc.setForeground(new java.awt.Color(255, 255, 0));
         getContentPane().add(lc);
-        lc.setBounds(1350, 60, 50, 40);
+        lc.setBounds(1080, 30, 50, 30);
 
         l6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/p4/new-york-scifi.png"))); // NOI18N
         l6.setText("jLabel1");
         getContentPane().add(l6);
-        l6.setBounds(820, 50, 290, 439);
+        l6.setBounds(820, 100, 290, 439);
 
         l5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/p4/the-moon-and-the-other-scifi.png"))); // NOI18N
         getContentPane().add(l5);
-        l5.setBounds(770, 50, 390, 500);
+        l5.setBounds(770, 110, 390, 500);
 
         l4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/p4/waking-gods-scifi.png"))); // NOI18N
         getContentPane().add(l4);
-        l4.setBounds(800, 50, 330, 500);
+        l4.setBounds(800, 110, 330, 500);
 
         l3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/p4/six-wakes-scifi.png"))); // NOI18N
         l3.setText("jLabel1");
         getContentPane().add(l3);
-        l3.setBounds(810, 40, 330, 500);
+        l3.setBounds(810, 90, 330, 500);
 
         l2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/p4/the-stars-are-legion-scifi.png"))); // NOI18N
         getContentPane().add(l2);
-        l2.setBounds(810, 40, 330, 500);
+        l2.setBounds(810, 90, 330, 500);
 
         l1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/p4/borne-scifi.png"))); // NOI18N
         l1.setText("jLabel1");
         getContentPane().add(l1);
-        l1.setBounds(820, 40, 332, 498);
+        l1.setBounds(810, 90, 332, 498);
 
         bg_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/p4/scifi.png"))); // NOI18N
         bg_label.setPreferredSize(new java.awt.Dimension(1200, 680));
